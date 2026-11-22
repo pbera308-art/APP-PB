@@ -33,9 +33,6 @@ jobs:
             yes | sdkmanager --licenses >/dev/null 2>&1 || true
           fi
 
-      - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@v4
-
       - name: Locate Android project directory
         id: locate_project
         run: |
@@ -57,9 +54,9 @@ jobs:
 
           if [ -f "./gradlew" ]; then
             chmod +x ./gradlew
-            ./gradlew assembleDebug --stacktrace
+            ./gradlew assembleDebug --refresh-dependencies --stacktrace
           else
-            gradle assembleDebug --stacktrace
+            gradle assembleDebug --refresh-dependencies --stacktrace
           fi
 
       - name: Upload APK Artifact
